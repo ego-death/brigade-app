@@ -22,6 +22,15 @@ app.get('/', (req, res) => {
     res.send('Welcome to the server!');
 });
 
+app.get('/search/:name', (req, res) => {
+    db.collection('tenants').findOne({fullname: req.params.name})
+        .then(data => {
+            res.json(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
 app.get('/display', (req, res) => {
     db.collection('tenants').find().toArray()
     .then(data => {
