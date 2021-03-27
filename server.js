@@ -1,10 +1,12 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const cors = require('cors');
 const app = express();
 const PORT = 8000;
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 app.use(express.json());
+app.use(cors());
 
 let db,
 dbConnectionStr = 'mongodb+srv://sid:P9LGe4j8TxySEMaS@cluster0.gl88h.mongodb.net/brigade?retryWrites=true&w=majority',
@@ -18,6 +20,17 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 
 app.get('/', (req, res) => {
     res.send('Welcome to the server!');
+});
+
+app.get('/display', (req, res) => {
+    db.collection('tenants').find().toArray()
+    .then(data => {
+        console.log(data);
+        res.json(data);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 });
 
 app.post('/addTenant', urlencodedParser, (req, res) => {
