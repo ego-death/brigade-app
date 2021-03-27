@@ -3,7 +3,7 @@ document.querySelector('button').addEventListener('click', runSearch);
 async function runSearch(){
     document.querySelector('ul').innerHTML = "";
     let name = document.querySelector('input').value;
-    let res = await fetch(`http://localhost:8000/search/${name}`);
+    let res = await fetch(` https://brigadee.herokuapp.com/search/${name}`);
     let el = await res.json();
     if(el){
     let due = 5000+(Number(el.flattype[0])*500)+(el.peopleno*500);

@@ -2,7 +2,7 @@ document.querySelector('button').addEventListener('click', getData);
 
 async function getData(){
     document.querySelector('ul').innerHTML="";
-    const res = await fetch('http://localhost:8000/display');
+    const res = await fetch(' https://brigadee.herokuapp.com/display');
     const arr = await res.json();
     for(const el of arr){
         document.querySelector('ul').innerHTML+=`<li><span>flatno: ${el.flatno}</span><br>
